@@ -1,0 +1,6 @@
+mutation LoginOrSignup($phone: String!, $pinCode: String!) {
+  loginOrSignup(phone: $phone, pinCode: $pinCode) {
+    token
+    refreshToken
+  }
+}

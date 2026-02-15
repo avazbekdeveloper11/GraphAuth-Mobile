@@ -1,0 +1,43 @@
+type AnonymousToken {
+  token: String!
+  refreshToken: String!
+}
+
+type TokenResponse {
+  token: String!
+  refreshToken: String!
+}
+
+type OtpQuery {
+  verifyCode(phone: String!, code: String!): Boolean!
+}
+
+type OtpMutation {
+  createForPhone(phone: String): Boolean!
+}
+
+type Mutation {
+  otp: OtpMutation!
+  loginOrSignup(phone: String, pinCode: String, userType: String): TokenResponse
+}
+
+type ProfileResponse {
+  id: String
+  firstName: String
+  lastName: String
+  patronymic: String
+  phone: String
+  email: String
+  imageUrl: String
+  birthDate: String
+  username: String
+  addressLine: String
+  referralCode: String
+}
+
+type Query {
+  anonymousToken: AnonymousToken!
+  otp: OtpQuery!
+  refreshToken: TokenResponse
+  profile: ProfileResponse
+}

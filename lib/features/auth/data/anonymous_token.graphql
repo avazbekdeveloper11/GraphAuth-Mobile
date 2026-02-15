@@ -1,0 +1,6 @@
+query AnonymousToken {
+    anonymousToken {
+        token
+        refreshToken
+    }
+}

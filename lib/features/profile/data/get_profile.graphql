@@ -1,0 +1,14 @@
+query GetProfile {
+  profile {
+    firstName
+    lastName
+    patronymic
+    phone
+    email
+    imageUrl
+    birthDate
+    username
+    addressLine
+    referralCode
+  }
+}
