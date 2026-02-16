@@ -1,16 +1,4 @@
-# graph_auth_mobile
-
-A Flutter mobile application that implements OTP-based authentication using phone number login and displays user profile data via GraphQL API.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<img width="1320" height="2868" alt="Simulator Screenshot - iPhone 17 Pro Max - 2026-02-16 at 05 38 38" src="https://github.com/user-attachments/assets/007caa13-71e3-42bb-9d73-aa0dfe818dce" />
+<img width="1320" height="2868" alt="Simulator Screenshot - iPhone 17 Pro Max - 2026-02-16 at 05 38 21" src="https://github.com/user-attachments/assets/ebb9c2cf-8e59-4bc1-9580-fb5c664e6ab3" />
+<img width="1320" height="2868" alt="Simulator Screenshot - iPhone 17 Pro Max - 2026-02-16 at 05 38 24" src="https://github.com/user-attachments/assets/104cf602-783d-4bb5-9692-4e4c0b0b6af2" />
+<img width="1320" height="2868" alt="Simulator Screenshot - iPhone 17 Pro Max - 2026-02-16 at 05 38 27" src="https://github.com/user-attachments/assets/e008607a-e376-4544-a90e-b1aeeb83e346" />
