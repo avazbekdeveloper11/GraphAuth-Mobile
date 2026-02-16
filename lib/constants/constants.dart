@@ -1,4 +1,3 @@
-import "dart:io";
 
 sealed class Constants {
   Constants._();
@@ -10,14 +9,9 @@ sealed class Constants {
   static const String authUrl = "";
   static const String baseUrl = "";
 
-  /// id
   static const String clientTypeId = "";
   static const String companyId = "";
   static const String roleId = "";
-
-  static final String appLink = Platform.isIOS
-      ? "https://apps.apple.com/us/app/q-watt-powerbank-sharing/id6444178516"
-      : "https://play.google.com/store/apps/details?id=com.q.watt";
 }
 
 class Validations {

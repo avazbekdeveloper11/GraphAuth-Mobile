@@ -3,19 +3,41 @@ import "package:flutter_bloc/flutter_bloc.dart";
 import "package:graph_auth_mobile/core/extension/api_status_extension.dart";
 import "package:graph_auth_mobile/core/utils/utils.dart";
 import "package:graph_auth_mobile/features/profile/presentation/pages/bloc/profile_bloc.dart";
+import "package:graph_auth_mobile/router/app_routes.dart";
+import "package:go_router/go_router.dart";
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(title: const Text("Profile")),
-        body: BlocBuilder<ProfileBloc, ProfileState>(
+  Widget build(BuildContext context) => BlocListener<ProfileBloc, ProfileState>(
+        listener: (context, state) {
+          if (state.loggedOut && context.mounted) {
+            context.goNamed(Routes.auth);
+          }
+        },
+        listenWhen: (prev, curr) => prev.loggedOut != curr.loggedOut,
+        child: Scaffold(
+          appBar: AppBar(
+            title: const Text("Profile"),
+            actions: [
+              IconButton(
+                onPressed: () {
+                  context.read<ProfileBloc>().add(const LogoutEvent());
+                },
+                icon: const Icon(Icons.exit_to_app_outlined),
+              ),
+            ],
+          ),
+          body: BlocBuilder<ProfileBloc, ProfileState>(
           builder: (BuildContext context, ProfileState state) {
             if (state.profileApiStatus.isLoading) {
               return const Center(child: CircularProgressIndicator());
             }
             if (state.profileApiStatus.isError && state.message != null) {
+              final isSessionError = state.message!.toLowerCase().contains(
+                    RegExp(r'session|token|401|unauthorized'),
+                  );
               return SingleChildScrollView(
                 child: Center(
                   child: Padding(
@@ -29,13 +51,17 @@ class ProfilePage extends StatelessWidget {
                           style: TextStyle(
                               color: Theme.of(context).colorScheme.error),
                         ),
-                        // const SizedBox(height: 16),
-                        // ElevatedButton(
-                        //   onPressed: () {
-                        //     context.read<ProfileBloc>().add(GetProfileEvent());
-                        //   },
-                        //   child: const Text("Qayta urinish"),
-                        // ),
+                        if (isSessionError) ...[
+                          const SizedBox(height: 16),
+                          ElevatedButton(
+                            onPressed: () {
+                              context
+                                  .read<ProfileBloc>()
+                                  .add(const LogoutEvent());
+                            },
+                            child: const Text("Qayta kirish"),
+                          ),
+                        ],
                       ],
                     ),
                   ),
@@ -80,6 +106,7 @@ class ProfilePage extends StatelessWidget {
               ),
             );
           },
+        ),
         ),
       );
 

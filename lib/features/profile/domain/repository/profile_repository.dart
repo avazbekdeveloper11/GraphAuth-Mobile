@@ -4,5 +4,6 @@ import "package:graph_auth_mobile/features/profile/data/__generated__/get_profil
 
 abstract class ProfileRepository {
   const ProfileRepository();
-  Future<Either<Failure, GGetProfileData_profile?>> getProfile();
+
+  Future<Either<Failure, GGetProfileData_profile>> getProfile();
 }

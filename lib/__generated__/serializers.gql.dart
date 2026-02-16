@@ -18,6 +18,12 @@ import 'package:graph_auth_mobile/features/auth/data/__generated__/login_or_sign
     show GLoginOrSignupReq;
 import 'package:graph_auth_mobile/features/auth/data/__generated__/login_or_signup.var.gql.dart'
     show GLoginOrSignupVars;
+import 'package:graph_auth_mobile/features/auth/data/__generated__/refresh_token.data.gql.dart'
+    show GRefreshTokenData, GRefreshTokenData_refreshToken;
+import 'package:graph_auth_mobile/features/auth/data/__generated__/refresh_token.req.gql.dart'
+    show GRefreshTokenReq;
+import 'package:graph_auth_mobile/features/auth/data/__generated__/refresh_token.var.gql.dart'
+    show GRefreshTokenVars;
 import 'package:graph_auth_mobile/features/auth/data/__generated__/send_otp.data.gql.dart'
     show GSendOtpData, GSendOtpData_otp;
 import 'package:graph_auth_mobile/features/auth/data/__generated__/send_otp.req.gql.dart'
@@ -49,6 +55,10 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GLoginOrSignupData_loginOrSignup,
   GLoginOrSignupReq,
   GLoginOrSignupVars,
+  GRefreshTokenData,
+  GRefreshTokenData_refreshToken,
+  GRefreshTokenReq,
+  GRefreshTokenVars,
   GSendOtpData,
   GSendOtpData_otp,
   GSendOtpReq,

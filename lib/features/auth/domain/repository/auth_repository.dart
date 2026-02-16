@@ -16,4 +16,7 @@ abstract class AuthRepository {
     required String phone,
     required String pinCode,
   });
+
+  Future<Either<Failure, (String accessToken, String refreshToken)>>
+      refreshToken();
 }

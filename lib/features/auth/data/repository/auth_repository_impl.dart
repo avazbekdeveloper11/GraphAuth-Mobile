@@ -1,5 +1,3 @@
-import "dart:developer";
-
 import "package:ferry/ferry.dart";
 import "package:gql_exec/gql_exec.dart";
 import "package:graph_auth_mobile/core/either/either.dart";
@@ -8,6 +6,7 @@ import "package:graph_auth_mobile/core/local_source/local_source.dart";
 import "package:graph_auth_mobile/features/auth/domain/repository/auth_repository.dart";
 import "package:graph_auth_mobile/features/auth/data/__generated__/anonymous_token.req.gql.dart";
 import "package:graph_auth_mobile/features/auth/data/__generated__/login_or_signup.req.gql.dart";
+import "package:graph_auth_mobile/features/auth/data/__generated__/refresh_token.req.gql.dart";
 import "package:graph_auth_mobile/features/auth/data/__generated__/send_otp.req.gql.dart";
 import "package:graph_auth_mobile/injector_container.dart";
 
@@ -31,8 +30,7 @@ class AuthRepositoryImpl implements AuthRepository {
       }
       await _localSource.setAnonymousToken(data.token);
       return Right(data.token);
-    } catch (e, st) {
-      log("getAnonymousToken error: $e", stackTrace: st);
+    } catch (e) {
       return Left(ServerFailure(message: e.toString()));
     }
   }
@@ -70,8 +68,7 @@ class AuthRepositoryImpl implements AuthRepository {
       final result = data.otp.createForPhone;
 
       return Right(result);
-    } catch (e, st) {
-      log('sendOtp error: $e', stackTrace: st);
+    } catch (e) {
       return Left(ServerFailure(message: e.toString()));
     }
   }
@@ -124,16 +121,48 @@ class AuthRepositoryImpl implements AuthRepository {
       }
 
       return Right((tokenData.token, tokenData.refreshToken));
-    } catch (e, st) {
-      log(
-        "loginOrSignup error",
-        error: e,
-        stackTrace: st,
-      );
-
+    } catch (e) {
       return Left(
         ServerFailure(message: "Login failed. Please try again."),
       );
+    }
+  }
+
+  @override
+  Future<Either<Failure, (String, String)>> refreshToken() async {
+    try {
+      final refresh = _localSource.refreshToken;
+      if (refresh.isEmpty) {
+        return const Left(
+          ServerFailure(message: "Refresh token not found"),
+        );
+      }
+      final context = Context().withEntry(
+        HttpLinkHeaders(
+          headers: {'Authorization': 'Bearer $refresh'},
+        ),
+      );
+      final req = GRefreshTokenReq((b) => b..context = context);
+      final response = await _authClient.request(req).first;
+
+      if (response.hasErrors &&
+          response.graphqlErrors != null &&
+          response.graphqlErrors!.isNotEmpty) {
+        return Left(
+          ServerFailure(
+            message: response.graphqlErrors!.first.message,
+          ),
+        );
+      }
+      final data = response.data?.refreshToken;
+      if (data == null) {
+        return const Left(
+          ServerFailure(message: "Invalid refresh response"),
+        );
+      }
+      return Right((data.token, data.refreshToken));
+    } catch (e) {
+      return Left(ServerFailure(message: e.toString()));
     }
   }
 }

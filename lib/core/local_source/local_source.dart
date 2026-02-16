@@ -77,4 +77,11 @@ final class LocalSource {
   Future<void> clear() async {
     await box.clear();
   }
+
+  Future<void> clearAuth() async {
+    await box.delete(AppKeys.accessToken);
+    await box.delete(AppKeys.refreshToken);
+    await box.delete(AppKeys.anonymousToken);
+    await box.delete(AppKeys.hasProfile);
+  }
 }

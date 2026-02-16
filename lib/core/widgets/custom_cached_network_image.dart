@@ -38,12 +38,8 @@ class CustomCachedNetworkImage extends StatelessWidget {
       height: height,
       cacheKey: imageUrl,
       imageUrl: imageUrl,
-
-      ///
       memCacheWidth: cacheWidth,
       memCacheHeight: cacheHeight,
-
-      ///
       maxWidthDiskCache: cacheWidth,
       maxHeightDiskCache: cacheHeight,
       placeholder: placeholder,

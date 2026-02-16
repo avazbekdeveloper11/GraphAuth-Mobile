@@ -25,7 +25,6 @@ class CustomButton extends StatelessWidget {
   Widget build(BuildContext context) {
     const BorderRadius borderRadius = BorderRadius.all(Radius.circular(8));
 
-    /// Label
     final Widget labelA = DefaultTextStyle(
       style: const TextStyle(
         height: 20 / 15,
@@ -36,7 +35,6 @@ class CustomButton extends StatelessWidget {
       child: label,
     );
 
-    /// Icon
     final Widget childA;
     if (leftIcon != null || rightIcon != null) {
       childA = Row(
